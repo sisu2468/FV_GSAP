@@ -1,40 +1,37 @@
 gsap.registerPlugin(ScrollTrigger);
 
-let sections = gsap.utils.toArray(".c-img");
+const sections = document.querySelectorAll('.c-img');
+const container = document.querySelector('.container');
 
-gsap.to(sections, {
-  xPercent: -100 * (sections.length - 1),
-  ease: "none",
+// GSAP timeline to handle the opacity transitions
+const tl = gsap.timeline({
   scrollTrigger: {
-    trigger: ".container",
-    pin: true,
-    scrub: 1,
-    snap: 1 / (sections.length - 1),
-    end: () => "+=" + document.querySelector(".container").offsetWidth
+      trigger: container,
+      pin: true,
+      scrub: 1,
+      end: () => "+=" + container.offsetWidth
   }
 });
 
-// sections.forEach((section, index) => {
-//   const img = section.querySelector('img');
-//   const text = section.querySelector('.c-text');
+sections.forEach((section, index) => {
+  tl.fromTo(section.querySelector('img'), 
+      { opacity: 1 }, // Start with full opacity
+      { opacity: 0 }, // End with no opacity
+      index * 1 // Change this to adjust timing
+  );
+});
 
-//   gsap.fromTo(img, { opacity: 0 }, {
-//     opacity: 1,
-//     scrollTrigger: {
-//       trigger: section,
-//       start: "center center",
-//       end: "center center",
-//       scrub: true
-//     }
-//   });
+function checkOpacity() {
+  document.querySelectorAll('img').forEach(img => {
+    const opacity = window.getComputedStyle(img).getPropertyValue('opacity');
+    if (opacity == 0) {
+      img.style.display = 'none';
+      console.log('Image with opacity 0 has been hidden:', img.className);
+    } else {
+      img.style.display = ''; // Ensure the image is visible if opacity is not 0
+    }
+  });
+  requestAnimationFrame(checkOpacity);
+}
 
-//   gsap.fromTo(text, { opacity: 0 }, {
-//     opacity: 1,
-//     scrollTrigger: {
-//       trigger: section,
-//       start: "center center",
-//       end: "center center",
-//       scrub: true
-//     }
-//   });
-// });
+checkOpacity();
