@@ -9,7 +9,7 @@ const tl = gsap.timeline({
       trigger: container,
       pin: true,
       scrub: 1,
-      end: () => "+=" + (container.offsetWidth * 5) // Increase the scroll range by multiplying the container width
+      end: () => "+=" + (container.offsetWidth * 4) // Increase the scroll range by multiplying the container width
   }
 });
 
