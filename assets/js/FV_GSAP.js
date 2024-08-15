@@ -20,6 +20,14 @@ const tl = gsap.timeline({
     end: () => "+=" + (container.offsetWidth * delay_time), // Adjust scroll range
   }
 });
+const tl5 = gsap.timeline({
+  scrollTrigger: {
+    trigger: container,
+    pin: true,
+    scrub: 0.5, // Scrub sensitivity
+    end: () => "+=" + (container.offsetWidth * 3), // Adjust scroll range
+  }
+});
 
 sections.forEach((section, index) => {
   const img = section.querySelector('img');
