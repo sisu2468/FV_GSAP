@@ -4,31 +4,37 @@ const sections = document.querySelectorAll('.c-img');
 const container = document.querySelector('.container');
 const screenWidth = window.screen.width;
 console.log('Screen width:', screenWidth);
-let delay_time = 2;
+let delay_time = 5;
+
 if(screenWidth <= 768){
   delay_time = 10;
-}
-else if(screenWidth <= 425){
+} else if(screenWidth <= 425){
   delay_time = 20;
 }
-
 
 const tl = gsap.timeline({
   scrollTrigger: {
     trigger: container,
     pin: true,
-    scrub: 0.5, // Scrub sensitivityを調整
+    scrub: 0.5, // Scrub sensitivity
     end: () => "+=" + (container.offsetWidth * delay_time), // Adjust scroll range
   }
 });
 
 sections.forEach((section, index) => {
-  tl.fromTo(section.querySelector('img'), 
-    { opacity: 1 },
-    { opacity: 0, duration: 1 }, // Adjust duration
-    index * 0.5 // Adjust timing
-  );
-  tl.fromTo(section.querySelector('p'), 
+  const img = section.querySelector('img');
+  const p = section.querySelector('p');
+
+  // Skip opacity animation for img5
+  if (!img.classList.contains('img5')) {
+    tl.fromTo(img, 
+      { opacity: 1 },
+      { opacity: 0, duration: 1 }, // Adjust duration
+      index * 0.5 // Adjust timing
+    );
+  }
+
+  tl.fromTo(p, 
     { opacity: 1 },
     { opacity: 0, duration: 1 }, 
     index * 1
@@ -44,7 +50,7 @@ function checkOpacity() {
     const correspondingText = texts[idx - 1];
     if (opacity == 0) {
       if (img.className == 'black-image') black_text.style.display = 'none';
-      if (correspondingText) correspondingText.style.display = 'none';
+      if (correspondingText && correspondingText != 'f5') correspondingText.style.display = 'none';
     } else if (opacity == 1) {
       if (img.className == 'black-image') black_text.style.display = 'block';
       if (correspondingText) correspondingText.style.display = 'block';
@@ -89,9 +95,6 @@ function checkOpacity() {
       }
       if (img.className == 'img4'){
         text4.style.display = 'none';
-      }
-      if (img.className == 'img5'){
-        text5.style.display = 'none';
       }
     } else {
       img.style.display = ''; // Ensure the image is visible if opacity is not 0
