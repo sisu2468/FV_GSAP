@@ -2,31 +2,59 @@ gsap.registerPlugin(ScrollTrigger);
 
 const sections = document.querySelectorAll('.c-img');
 const container = document.querySelector('.container');
+const screenWidth = window.screen.width;
+console.log('Screen width:', screenWidth);
+let delay_time = 2;
+if(screenWidth <= 768){
+  delay_time = 10;
+}
+else if(screenWidth <= 425){
+  delay_time = 20;
+}
 
-// GSAP timeline to handle the opacity transitions
+
 const tl = gsap.timeline({
   scrollTrigger: {
-      trigger: container,
-      pin: true,
-      scrub: 1,
-      end: () => "+=" + (container.offsetWidth * 4) // Increase the scroll range by multiplying the container width
+    trigger: container,
+    pin: true,
+    scrub: 0.5, // Scrub sensitivityを調整
+    end: () => "+=" + (container.offsetWidth * delay_time), // Adjust scroll range
   }
 });
 
 sections.forEach((section, index) => {
   tl.fromTo(section.querySelector('img'), 
-      { opacity: 1 }, // Start with full opacity
-      { opacity: 0, duration: 100}, // End with no opacity
-      index * 100 // Change this to adjust timing
+    { opacity: 1 },
+    { opacity: 0, duration: 1 }, // Adjust duration
+    index * 0.5 // Adjust timing
   );
-});
-sections.forEach((section, index) => {
   tl.fromTo(section.querySelector('p'), 
-      { opacity: 1 }, // Start with full opacity
-      { opacity: 0, duration: 100}, // End with no opacity
-      index * 100 // Change this to adjust timing
+    { opacity: 1 },
+    { opacity: 0, duration: 1 }, 
+    index * 1
   );
 });
+
+const black_text = document.querySelector('.c-text.f0');
+const texts = [document.querySelector('.c-text.f1'), document.querySelector('.c-text.f2'), document.querySelector('.c-text.f3'), document.querySelector('.c-text.f4'), document.querySelector('.c-text.f5')];
+
+function checkOpacity() {
+  document.querySelectorAll('img').forEach((img, idx) => {
+    const opacity = window.getComputedStyle(img).getPropertyValue('opacity');
+    const correspondingText = texts[idx - 1];
+    if (opacity == 0) {
+      if (img.className == 'black-image') black_text.style.display = 'none';
+      if (correspondingText) correspondingText.style.display = 'none';
+    } else if (opacity == 1) {
+      if (img.className == 'black-image') black_text.style.display = 'block';
+      if (correspondingText) correspondingText.style.display = 'block';
+    }
+  });
+}
+
+ScrollTrigger.addEventListener("refresh", checkOpacity);
+ScrollTrigger.addEventListener("scrollEnd", checkOpacity);
+
 // sections.forEach((section, index) => {
 //   tl.fromTo(section.querySelector('p'), 
 //       { opacity: 1 }, // Start with full opacity
@@ -34,7 +62,7 @@ sections.forEach((section, index) => {
 //       index * 100000 // Change this to adjust timing
 //   );
 // });
-const black_text = document.querySelector('.c-text.f0');
+// const black_text = document.querySelector('.c-text.f0');
 const text1 = document.querySelector('.c-text.f1');
 const text2 = document.querySelector('.c-text.f2');
 const text3 = document.querySelector('.c-text.f3');
