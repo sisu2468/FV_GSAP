@@ -9,7 +9,7 @@ const tl = gsap.timeline({
     trigger: container,
     pin: true,
     scrub: 0.5, // Scrub sensitivity
-    end: () => "+=" + (container.offsetWidth * 3), // Adjust scroll range
+    end: () => "+=" + (container.offsetWidth * 4), // Adjust scroll range
   }
 });
 
@@ -76,7 +76,7 @@ function checkOpacity() {
         img6.style.display = 'block';
         text6.style.display = 'block';
       }
-      if(opacity <= 0.07){
+      if(opacity <= 0.06){
         img6.style.display = 'none';
         text6.style.display = 'none';
         img7.style.display = 'block';
