@@ -90,7 +90,7 @@ checkOpacity();
 console.log(window.innerWidth);
 
 function checkSP() {
-  if (window.innerWidth <= 980) { // or 425 depending on your breakpoint
+  if (window.innerWidth <= 990) { // or 425 depending on your breakpoint
     const textElement1 = document.querySelector('.c-text.f1');
     const textElement2 = document.querySelector('.c-text.f2');
     const textElement3 = document.querySelector('.c-text.f3');
