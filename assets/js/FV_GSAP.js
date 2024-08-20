@@ -1,6 +1,15 @@
 gsap.registerPlugin(ScrollTrigger);
 
-const sections = document.querySelectorAll('.c-img.img1');
+const sections = document.querySelectorAll('.c-img');
+
+const section_img1 = document.querySelectorAll('.c-img.img1');
+const section_img2 = document.querySelectorAll('.c-img.img2');
+const section_img3 = document.querySelectorAll('.c-img.img3');
+const section_img4 = document.querySelectorAll('.c-img.img4');
+const section_img5 = document.querySelectorAll('.c-img.img5');
+const section_img6 = document.querySelectorAll('.c-img.img6');
+const section_img7 = document.querySelectorAll('.c-img.img7');
+
 const container = document.querySelector('.container');
 const screenWidth = window.screen.width;
 
@@ -9,31 +18,17 @@ const tl = gsap.timeline({
     trigger: container,
     pin: true,
     scrub: 0.5, // Scrub sensitivity
-    end: () => "+=" + (container.offsetWidth * 4), // Adjust scroll range
+    end: () => "+=" + (container.offsetWidth * 15), // Adjust scroll range
   }
 });
+// ScrollTrigger.addEventListener("refresh", checkOpacity);
+// ScrollTrigger.addEventListener("scrollEnd", checkOpacity);
 
-sections.forEach((section, index) => {
-  const img = section.querySelector('img');
-  const p = section.querySelector('p');
-
-  tl.fromTo(img, 
-    { opacity: 1 },
-    { opacity: 0, duration: 1 }, // Adjust duration
-    index * 0.5 // Adjust timing
-  );
-});
-
-ScrollTrigger.addEventListener("refresh", checkOpacity);
-ScrollTrigger.addEventListener("scrollEnd", checkOpacity);
-
-const text1 = document.querySelector('.c-text.f1');
-const text2 = document.querySelector('.c-text.f2');
-const text3 = document.querySelector('.c-text.f3');
-const text4 = document.querySelector('.c-text.f4');
-const text5 = document.querySelector('.c-text.f5');
-const text6 = document.querySelector('.c-text.f6');
-const text7 = document.querySelector('.c-text.f7');
+const textElement1 = document.querySelector('.c-text.f1');
+const textElement2 = document.querySelector('.c-text.f2');
+const textElement3 = document.querySelector('.c-text.f3');
+const textElement4 = document.querySelector('.c-text.f4');
+const textElement5 = document.querySelector('.c-text.f5');
 
 const img1 = document.querySelector('img.img1');
 const img2 = document.querySelector('img.img2');
@@ -41,62 +36,123 @@ const img3 = document.querySelector('img.img3');
 const img4 = document.querySelector('img.img4');
 const img5 = document.querySelector('img.img5');
 const img6 = document.querySelector('img.img6');
-const img7 = document.querySelector('img.img7');
 
-function checkOpacity() {
-  document.querySelectorAll('img').forEach(img => {
-    if (img.classList.contains('img1')) {
-      const opacity = window.getComputedStyle(img).getPropertyValue('opacity');
-      if(opacity <= 0.9){
-        text1.style.display = 'none';
-        img2.style.display = 'block';
-        text2.style.display = 'block';
-      }
-      if(opacity <= 0.7){
-        img2.style.display = 'none';
-        text2.style.display = 'none';
-        text3.style.display = 'block';
-        img3.style.display = 'block';
-      }
-      if(opacity <= 0.5){
-        img3.style.display = 'none';
-        text3.style.display = 'none';
-        img4.style.display = 'block';
-        text4.style.display = 'block';
-      }
-      if(opacity <= 0.2){
-        img4.style.display = 'none';
-        text4.style.display = 'none';
-        img5.style.display = 'block';
-        text5.style.display = 'block';
-      }
-      if(opacity <= 0.1){
-        img5.style.display = 'none';
-        text5.style.display = 'none';
-        img6.style.display = 'block';
-        text6.style.display = 'block';
-      }
-      if(opacity <= 0.06){
-        img6.style.display = 'none';
-        text6.style.display = 'none';
-        img7.style.display = 'block';
-        text7.style.display = 'block';
-      }
-    }
-  });
-}
+// Get the computed style of img2 and retrieve the opacity value
+let img1Opacity = 1.0;
+let img2Opacity = 1.0
+let img3Opacity = 1.0
+let img4Opacity = 1.0
+let img5Opacity = 1.0
+let img6Opacity = 1.0
 
-checkOpacity();
-console.log(window.innerWidth);
+window.addEventListener('scroll', () => {
+  let scrollPosition = window.scrollY || window.pageYOffset;
+  console.log("Current scroll position:", scrollPosition);
+  img2Opacity = window.getComputedStyle(img2).getPropertyValue('opacity');
+  img3Opacity = window.getComputedStyle(img3).getPropertyValue('opacity');
+  img4Opacity = window.getComputedStyle(img4).getPropertyValue('opacity');
+  img5Opacity = window.getComputedStyle(img5).getPropertyValue('opacity');
+  img6Opacity = window.getComputedStyle(img6).getPropertyValue('opacity');
+  img1Opacity = window.getComputedStyle(img1).getPropertyValue('opacity');
+  console.log("Opacity of img1:", img1Opacity);
+  
+  // Log the opacity value to the console
+  console.log("Opacity of img2:", img2Opacity);
+  console.log("Opacity of img3:", img3Opacity);
+  console.log("Opacity of img4:", img4Opacity);
+  console.log("Opacity of img5:", img5Opacity);
+  console.log("Opacity of img6:", img6Opacity);
+});
+
+sections.forEach((section, index) => {
+  const img = section.querySelector('img');
+  const p = section.querySelector('p');
+  if (! img.classList.contains('img7')){
+    tl.fromTo(img, 
+      { opacity: 1 },
+      { opacity: 0, duration: 1 }, // Adjust duration
+      index * 0.5 // Adjust timing
+    );
+    
+    tl.fromTo(p, 
+      { opacity: 1 },
+      { opacity: 0, duration: 1 }, // Adjust duration
+      index * 0.5 // Adjust timing
+    );
+
+  }
+});
+// if (img1Opacity == 0) {
+//   section_img2.forEach((section, index) => {
+//     const img = section.querySelector('img');
+//     const p = section.querySelector('p');
+//     tl.fromTo(img, 
+//       { opacity: 1 },
+//       { opacity: 0, duration: 1 }, // Adjust duration
+//       index * 0.5 // Adjust timing
+//     );
+    
+//     tl.fromTo(p, 
+//       { opacity: 1 },
+//       { opacity: 0, duration: 1 }, // Adjust duration
+//       index * 0.5 // Adjust timing
+//     );
+//   });
+// }
+// if (img3Opacity == 0) {
+//   section_img3.forEach((section, index) => {
+//     const img = section.querySelector('img');
+//     const p = section.querySelector('p');
+//     tl.fromTo(img, 
+//       { opacity: 1 },
+//       { opacity: 0, duration: 1 }, // Adjust duration
+//       index * 0.5 // Adjust timing
+//     );
+    
+//     tl.fromTo(p, 
+//       { opacity: 1 },
+//       { opacity: 0, duration: 1 }, // Adjust duration
+//       index * 0.5 // Adjust timing
+//     );
+//   });
+// }
+// if (img4Opacity == 0) {
+//   section_img4.forEach((section, index) => {
+//     const img = section.querySelector('img');
+//     const p = section.querySelector('p');
+//     tl.fromTo(img, 
+//       { opacity: 1 },
+//       { opacity: 0, duration: 1 }, // Adjust duration
+//       index * 0.5 // Adjust timing
+//     );
+    
+//     tl.fromTo(p, 
+//       { opacity: 1 },
+//       { opacity: 0, duration: 1 }, // Adjust duration
+//       index * 0.5 // Adjust timing
+//     );
+//   });
+// }
+// if (img5Opacity == 0) {
+//   section_img5.forEach((section, index) => {
+//     const img = section.querySelector('img');
+//     const p = section.querySelector('p');
+//     tl.fromTo(img, 
+//       { opacity: 1 },
+//       { opacity: 0, duration: 1 }, // Adjust duration
+//       index * 0.5 // Adjust timing
+//     );
+    
+//     tl.fromTo(p, 
+//       { opacity: 1 },
+//       { opacity: 0, duration: 1 }, // Adjust duration
+//       index * 0.5 // Adjust timing
+//     );
+//   });
+// }
 
 function checkSP() {
   if (window.innerWidth <= 990) { // or 425 depending on your breakpoint
-    const textElement1 = document.querySelector('.c-text.f1');
-    const textElement2 = document.querySelector('.c-text.f2');
-    const textElement3 = document.querySelector('.c-text.f3');
-    const textElement4 = document.querySelector('.c-text.f4');
-    const textElement5 = document.querySelector('.c-text.f5');
-
     textElement1.innerHTML = `関西初*、<br>
 				積水化学工業とNIPPOがおくる<br>
 				安心・安全・快適な<br>

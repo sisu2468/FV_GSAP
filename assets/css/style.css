@@ -29,6 +29,9 @@ html, body {
   background-color: black;
   height: 100%;
 }
+.opacity_over {
+  z-index: 800;
+}
 .img1, .f1 {
   z-index: 700;
 }
@@ -91,7 +94,9 @@ html, body {
     flex-direction: column;
   }
 }
-
+.opacity-zero-important {
+  opacity: 0 !important;
+}
 .c-img img {
   width: 100vw;
   height: 100vh;
@@ -103,14 +108,7 @@ html, body {
   /* left: 0; */
   /* transform: translateY(-50%); */
 }
-.title {
-  grid-column: 1 / 5;
-  grid-row: 1;
-  position: relative;
-  z-index: 2;
-}
-
 .main {
-  background: black;
+  background: pink;
   height: 100vh;
 }
